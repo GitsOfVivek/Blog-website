@@ -16,9 +16,12 @@
 	align-items: center;
 	justify-content: center;
 	color: #fff;
-	font-size: 1.7rem;
-	font-weight: 600;
+	font-size: 1.8rem;
+	font-weight: 900;
 	transition: all 0.5s ease;
+	background: linear-gradient(to right, #93be3c, #19b130);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
 }
 .logo:hover {
 	transform: scale(1.1);

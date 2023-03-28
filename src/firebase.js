@@ -58,4 +58,4 @@ const posts = getDocs(colRef)
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
-export { posts, auth, provider };
+export { posts, auth, provider, database, colRef };

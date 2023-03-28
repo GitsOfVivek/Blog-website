@@ -55,9 +55,8 @@ const ImgWrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	gap: 2rem;
-	margin-top: 1rem;
 	background: linear-gradient(to right, #93be3c, #19b130);
-	padding: 5px 0;
+	padding: 10px 0;
 	width: 100%;
 `;
 const ProfileWrapper = styled.div`

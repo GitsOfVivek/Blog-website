@@ -30,3 +30,24 @@ textarea {
 	min-height: 400px;
 	resize: none;
 }
+.create-post-btn {
+	width: fit-content;
+	margin: 20px;
+	cursor: pointer;
+	background: #19b130;
+	border: 0;
+	padding: 10px 25px;
+	border-radius: 5px;
+	font-weight: 600;
+}
+.create-post-btn:hover {
+	background: #00f024;
+}
+.blur {
+	filter: blur(10px);
+}
+.disabled {
+	pointer-events: none;
+	background: #777777;
+	color: #fff;
+}

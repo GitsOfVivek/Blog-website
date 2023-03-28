@@ -33,7 +33,6 @@ const Header = () => {
 				<div className="nav-links">
 					<Link to="/about">About</Link>
 					<Link to="/blogs">Blogs</Link>
-					<Link to="/contact">Contact</Link>
 				</div>
 				<div className="btns">
 					{isLoggedIn && (
