@@ -43,13 +43,23 @@
 .nav-links > a:hover {
 	background: #393939ee;
 }
+.btns {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+}
 .btn-login {
+	color: #fff;
 	padding: 10px 25px;
 	font-size: 1.1rem;
 	cursor: pointer;
 	border: 2px solid #393939;
 	background: transparent;
 	border-radius: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .btn-login:hover {
 	background: #393939ee;

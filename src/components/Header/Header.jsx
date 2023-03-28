@@ -2,19 +2,21 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import { auth, provider } from '../../firebase';
 import { signInWithPopup } from 'firebase/auth';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import loading from '../../assets/loading.svg';
+import UserContext from '../../context/UserContext';
 
 const Header = () => {
-	const [user, setUser] = useState(null);
+	const { userInfo, setUserInfo } = useContext(UserContext);
+	const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
 	const [isLogging, setIsLogging] = useState(false);
 	const handleLogIn = () => {
 		setIsLogging(true);
 		signInWithPopup(auth, provider)
 			.then(data => {
-				setUser(data.user);
-				console.log(data.user);
+				setUserInfo(data.user);
 				setIsLogging(false);
+				setIsLoggedIn(true);
 			})
 			.catch(e => {
 				console.log(e);
@@ -33,27 +35,37 @@ const Header = () => {
 					<Link to="/blogs">Blogs</Link>
 					<Link to="/contact">Contact</Link>
 				</div>
-				{user ? (
-					<button className="btn-login">{user.displayName}</button>
-				) : (
-					<button
-						disabled={isLogging}
-						onClick={handleLogIn}
-						className="btn-login">
-						{isLogging ? (
-							<img
-								style={{
-									height: '20px',
-									width: '20px',
-									margin: '0 10px',
-								}}
-								src={loading}
-							/>
-						) : (
-							'Log In'
-						)}
-					</button>
-				)}
+				<div className="btns">
+					{isLoggedIn && (
+						<Link to={'/create-post'} className="btn-login">
+							Create Post
+						</Link>
+					)}
+
+					{isLoggedIn ? (
+						<Link to={'/profile'} className="btn-login">
+							{userInfo?.displayName}
+						</Link>
+					) : (
+						<button
+							disabled={isLogging}
+							onClick={handleLogIn}
+							className="btn-login">
+							{isLogging ? (
+								<img
+									style={{
+										height: '20px',
+										width: '20px',
+										margin: '0 10px',
+									}}
+									src={loading}
+								/>
+							) : (
+								'Log In'
+							)}
+						</button>
+					)}
+				</div>
 			</header>
 		</div>
 	);

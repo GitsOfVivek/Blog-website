@@ -1,0 +1,32 @@
+.create-post-wrapper {
+	height: 100vh;
+	width: 100%;
+}
+.create-post {
+	height: 100%;
+	width: 90%;
+	margin: 1rem auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+	font-size: 1.3rem;
+}
+label {
+	text-align: left;
+	display: block;
+	margin-top: 10px;
+	width: 100%;
+}
+input,
+textarea {
+	display: block;
+	padding: 10px;
+	font-size: 1.2rem;
+	outline: 0;
+	width: 100%;
+}
+textarea {
+	min-height: 400px;
+	resize: none;
+}
