@@ -1,8 +1,11 @@
+import { uuidv4 } from '@firebase/util';
 import { doc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { database } from '../../firebase';
+import AddComments from '../AddComments/AddComments';
+import Comments from '../Comments/Comments';
 import Loading from '../Loading/Loading';
 import './PostDetails.css';
 
@@ -14,12 +17,14 @@ const PostDetails = () => {
 		const docSnap = await getDoc(docRef);
 		setPostDetails(docSnap.data());
 	};
+	
 	useEffect(() => {
 		getDataFromFirestore();
 	}, []);
 	return !postDetails ? (
 		<Loading />
 	) : (
+		<>
 		<PostDetailsWrapper>
 			<h1 className="title">{postDetails.title}</h1>
 			<div className="post">{postDetails.post}</div>
@@ -35,6 +40,11 @@ const PostDetails = () => {
 				</div>
 			</div>
 		</PostDetailsWrapper>
+		{postDetails?.comments?.map((comment) => 
+			<Comments key={uuidv4()} comment={comment} />
+		)}
+		<AddComments getDataFromFirestore={getDataFromFirestore} />
+		</>
 	);
 };
 

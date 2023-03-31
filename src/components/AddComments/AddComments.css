@@ -1,0 +1,34 @@
+.add-comments {
+  height: 3rem;
+  width: 80%;
+  margin: 2rem auto;
+}
+.comment {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.comments__input-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+.comments__input {
+  height: 100%;
+  margin: 1rem;
+
+}
+.comments__btn {
+  height: 100%;
+  background: rgb(49, 80, 184);
+  border: 0;
+  padding: 10px 15px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.comments__btn:hover {
+  background: rgb(54, 95, 230);
+}

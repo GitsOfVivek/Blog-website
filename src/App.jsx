@@ -22,6 +22,7 @@ const App = () => {
 			post.sort((a, b) => a.date - b.date);
 			setTotalPosts(post);
 		});
+		// setUserInfo({})
 	}, []);
 	return (
 		<PostContext.Provider value={{ totalPosts, setTotalPosts }}>

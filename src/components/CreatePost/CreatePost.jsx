@@ -24,6 +24,7 @@ const CreatePost = () => {
 			photoURL: userInfo?.photoURL,
 		},
 		id: '',
+		comments: [],
 	});
 
 	useEffect(() => {
