@@ -1,22 +1,47 @@
 import { uuidv4 } from '@firebase/util';
-import { doc, getDoc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { database } from '../../firebase';
 import AddComments from '../AddComments/AddComments';
 import Comments from '../Comments/Comments';
 import Loading from '../Loading/Loading';
-import './PostDetails.css';
+import './PostDetails.scss';
+import UserContext from '../../context/UserContext';
+import PostContext from '../../context/PostContext';
 
 const PostDetails = () => {
 	const { id } = useParams();
 	const [postDetails, setPostDetails] = useState(null);
+	const [bgImg, setBgImg] = useState('');
+	const { isLoggedIn, userInfo } = useContext(UserContext);
+	const { setTotalPosts } = useContext(PostContext);
 	const docRef = doc(database, 'posts', id);
+
 	const getDataFromFirestore = async () => {
 		const docSnap = await getDoc(docRef);
 		setPostDetails(docSnap.data());
+		setBgImg(docSnap.data().imgURL)
 	};
+
+	const deletePost = async () => {
+		await deleteDoc(docRef);
+		
+		const colRef = collection(database, 'posts');
+
+		await getDocs(colRef).then(snap => {
+			let posts = [];
+			snap.docs.forEach(doc => {
+				posts.push({ ...doc.data(), id: doc.id });
+			});
+			setTotalPosts(posts);
+		})
+
+
+		navigate('/')
+	}
+
+	const navigate = useNavigate();
 	
 	useEffect(() => {
 		getDataFromFirestore();
@@ -25,8 +50,22 @@ const PostDetails = () => {
 		<Loading />
 	) : (
 		<>
-		<PostDetailsWrapper>
-			<h1 className="title">{postDetails.title}</h1>
+		<div className='back-bn-wrapper'>
+			<button className='back-btn' onClick={() => {
+				navigate(-1);
+			}}>
+				Back
+			</button>
+			{isLoggedIn && postDetails.author.email === userInfo.email && <button onClick={deletePost} className='delete-btn'>Delete</button>}
+
+		</div>
+		<div className='post-details-wrapper'>
+			<h1 style={{
+				background: `url(${bgImg ? bgImg : 'https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8YmxvZ3x8fHx8fDE2ODAzMzE3NDM&ixlib=rb-4.0.3&q=80&w=900'})`,
+				backgroundRepeat: 'no-repeat',
+				backgroundSize: 'cover',
+				backgroundPosition: 'center'
+			}} className="title">{postDetails.title}</h1>
 			<div className="post">{postDetails.post}</div>
 			<div className="author">
 				<img
@@ -39,7 +78,7 @@ const PostDetails = () => {
 					<div> Posted on {postDetails.date}</div>
 				</div>
 			</div>
-		</PostDetailsWrapper>
+		</div>
 		{postDetails?.comments?.map((comment) => 
 			<Comments key={uuidv4()} comment={comment} />
 		)}
@@ -49,51 +88,3 @@ const PostDetails = () => {
 };
 
 export default PostDetails;
-
-const PostDetailsWrapper = styled.div`
-	width: 60%;
-	margin: 2rem auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 2rem;
-	border: 1px solid #93be3c;
-	border-radius: 5px;
-	background: #1a1f2270;
-
-	.title {
-		width: 100%;
-		text-align: center;
-		font-size: 1.7rem;
-		padding: 15px 20px;
-		background: linear-gradient(to right, #93be3c, #19b130);
-		border-radius: 4px 4px 0 0;
-	}
-	.post {
-		font-size: 1.4rem;
-		padding: 0 50px;
-		text-align: center;
-	}
-	.author {
-		align-self: flex-end;
-		padding: 0 50px 20px 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-		img {
-			height: 75px;
-			width: 75px;
-			border-radius: 100%;
-			border: 2px solid #19b130;
-		}
-
-		.author-info {
-			.name {
-				font-size: 1.3rem;
-				font-weight: 600;
-			}
-		}
-	}
-`;

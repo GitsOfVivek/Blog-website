@@ -1,60 +1,52 @@
-import styled from 'styled-components';
-import './About.css';
+import './About.scss';
 
 const About = () => {
 	return (
-		<AboutWrapper>
-			<h1>About Us</h1>
-			<div className="about">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Perspiciatis est optio voluptas sint minus pariatur. Commodi
-				esse officiis quae, id expedita necessitatibus culpa. Nam
-				laborum saepe quis quos perspiciatis quaerat, nesciunt hic
-				suscipit sapiente odit voluptas harum fugiat ea rem vero culpa
-				fugit iure commodi aliquam cum, tempore deleniti. Accusamus
-				dolorum quis officiis iste qui deleniti error praesentium minus
-				nemo quam quod ea ad amet, non quasi sapiente ipsum eveniet
-				quisquam tempore ab, beatae tempora, deserunt quos minima!
-				Voluptate, adipisci velit enim, dignissimos alias dolorem
-				numquam modi quae quas, doloremque fuga? Harum laboriosam culpa
-				facilis, vel magnam eius expedita debitis magni minus rerum
-				autem qui provident omnis voluptatibus eos dolorem veritatis
-				nisi voluptas? Sunt quae, voluptatum iste nulla asperiores unde
-				magnam. Molestiae culpa deleniti ab voluptate perferendis.
-				Delectus ipsa quae soluta ducimus corporis alias provident et
-				nisi laudantium. Officia officiis consectetur minima, minus
-				laudantium sed veritatis modi voluptatem nobis repudiandae unde
-				debitis pariatur dolorum repellendus aspernatur, quod totam
-				mollitia error sint qui explicabo labore. Consequuntur sit
-				corrupti quo non consequatur? Quas commodi magni incidunt omnis
-				ipsum, et, voluptatum quisquam labore iure nihil, facilis
-				nesciunt ab rem animi! Iusto consequuntur repellat fugit
-				necessitatibus labore, at ad illo voluptates possimus voluptate
-				soluta?
+		<div className='about-wrapper'>
+			<h1>About "BlogYourIdea"</h1>
+			<ul className="about">
+				<li>
+					This website is a blog website. Anyone can visit this website and read any blog. Id someone want to post there own blog then they must have to Log In. Once user will Log In they will see a Create Post button on header sectiopn on website. When user will click Create Post button they will see some input boxes. after filling Title, Image URL & Post user can click on Create Post button down.
+				</li>
+				<li>
+					When post has been created user will see success modal. After that on clicking OK button user will redirect to home page. On homepage user can see latest post. If user want to delete there post then they can easily open that post and click on Delete button on top right corner.
+				</li>
+
+				<li>
+					These all changes will reflect without reloading and instantly to all users.
+				</li>
+
+				<li>
+					Tech Stack
+					<ul>
+						<li>
+							React JS
+						</li>
+						<li>
+							CSS / SASS / Styled Component
+						</li>
+						<li>
+							Firebase / Firestore
+						</li>
+						<li>
+							React Router Dom
+						</li>
+						<li>
+							Context API
+						</li>
+					</ul>
+
+				</li>
+
+
+			</ul>
+			<div className='team-name'>
+					Created for Newton School Hackathon by <span>
+					Team AJAX
+					</span>
 			</div>
-		</AboutWrapper>
+		</div>
 	);
 };
 
 export default About;
-
-const AboutWrapper = styled.div`
-	width: 80%;
-	margin: 2rem auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	gap: 1rem;
-
-	h1 {
-		padding: 10px;
-		width: 100%;
-		background: linear-gradient(to right, #93be3c, #19b130);
-		text-align: center;
-	}
-
-	.about {
-		font-size: 1.4rem;
-	}
-`;

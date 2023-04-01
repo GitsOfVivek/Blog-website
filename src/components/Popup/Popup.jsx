@@ -31,18 +31,6 @@ const Popup = ({ message }) => {
 				height: '100vh',
 				width: '100%',
 			}}>
-			<BackgroundText>
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio
-				doloremque ad velit delectus! Corporis voluptates, fugiat
-				doloribus aperiam ab magnam eius iusto expedita cum veritatis
-				officia minus molestiae perspiciatis, ad cupiditate voluptate
-				porro mollitia repellat? Accusantium sed aperiam repellendus
-				molestiae quae ut tempore modi et quis recusandae. Qui
-				reiciendis eaque odit quae dolore fuga, quos, enim quia
-				obcaecati exercitationem illo laborum aut similique odio
-				mollitia recusandae quam numquam dolorem error ducimus facere ad
-				fugiat.
-			</BackgroundText>
 			<PopupDiv>
 				<div>
 					<span>{message}</span>
@@ -63,22 +51,11 @@ const Popup = ({ message }) => {
 
 export default Popup;
 
-const BackgroundText = styled.div`
-	position: fixed;
-	width: 100%;
-	font-size: 3rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	color: #ffffff15;
-	font-weight: 500;
-`;
-
 const PopupDiv = styled.div`
 	height: 300px;
-	width: 600px;
-	position: sticky;
+	width: 90%;
+	max-width: 600px;
+	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -100,7 +77,8 @@ const PopupDiv = styled.div`
 		gap: 2rem;
 
 		&:nth-child(1) {
-			background: linear-gradient(to right, #93be3c, #19b130);
+			background: linear-gradient(to right, var(--color-4), var(--color-3));
+			color: #fff;
 			padding: 5px 0;
 			width: 100%;
 
@@ -110,8 +88,6 @@ const PopupDiv = styled.div`
 			}
 		}
 
-		&:nth-child(2) {
-		}
 	}
 	button {
 		font-size: 1.3rem;
@@ -119,12 +95,20 @@ const PopupDiv = styled.div`
 		border-radius: 5px;
 		border: 0;
 		cursor: pointer;
+		color: #fff;
 
 		&:nth-child(1) {
-			background: #93be3c;
+			background:  var(--color-4);
+			
+			&:hover {
+				background:  var(--color-3);
+			}
 		}
 		&:nth-child(2) {
-			background: #19b130;
+			background:  var(--color-4);
+			&:hover {
+				background:  var(--color-3);
+			}
 		}
 	}
 `;

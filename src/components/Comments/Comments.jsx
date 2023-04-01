@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import './Comments.css'
+import './Comments.scss'
 
 const Comments = ({comment}) => {
   return <div className="comments-wrapper">

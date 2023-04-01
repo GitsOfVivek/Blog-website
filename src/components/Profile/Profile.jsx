@@ -49,17 +49,20 @@ const ProfileImg = styled.img`
 	height: 50px;
 	width: 50px;
 	border-radius: 100%;
-`;
-const ImgWrapper = styled.div`
+	border: 2px solid var(--color-1);
+	`;
+	const ImgWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 2rem;
-	background: linear-gradient(to right, #93be3c, #19b130);
+	background: linear-gradient(to right, var(--color-4), var(--color-3));
+	color: #fff;
 	padding: 10px 0;
 	width: 100%;
-`;
-const ProfileWrapper = styled.div`
+	border-radius: 10px 10px 0 0;
+	`;
+	const ProfileWrapper = styled.div`
 	width: 90%;
 	margin: 2rem auto;
 	display: flex;
@@ -68,11 +71,13 @@ const ProfileWrapper = styled.div`
 	flex-direction: column;
 	gap: 10px;
 	padding-bottom: 2rem;
-	border: 1px solid #93be3c;
-
+	border: 1px solid var(--color-3);
+	border-radius: 10px;
+	
 	.email,
 	.since,
 	.last {
+		padding: 0 20px;
 		font-size: 1.3rem;
 	}
 `;
@@ -87,9 +92,10 @@ const BtnSignOut = styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #4f3737;
+	background: var(--color-4);
+	border: 0;
 
 	&:hover {
-		background: #6f2525;
+		background: var(--color-3);
 	}
 `;

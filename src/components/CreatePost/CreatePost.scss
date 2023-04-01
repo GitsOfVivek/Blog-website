@@ -1,0 +1,117 @@
+.create-post-wrapper {
+	height: 100%;
+	width: 100%;
+
+	.create-post-card {
+		width: 50%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: 10px;
+		position: fixed;
+		background: #e1e1e1;
+		color: #404040;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-direction: column;
+		gap: 2rem;
+		z-index: 999;
+	
+		span {
+			height: 150px;
+			width: 150px;
+			background: green;
+			position: absolute;
+			top: -75px;
+			left: 50%;
+			transform: translateX(-50%);
+			border-radius: 100%;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+	
+			.sign {
+				font-size: 6rem;
+			}
+		}
+	
+		div {
+			text-align: center;
+			padding: 5px;
+		}
+		.title {
+			font-size: 3rem;
+			font-weight: 600;
+			margin-top: 100px;
+		}
+		.dec {
+			font-size: 1.5rem;
+		}
+	
+		.popup-btn {
+			width: 40%;
+			padding: 15px;
+			font-size: 1.3rem;
+			background: var(--color-4);
+			color: #fff;
+			border: 0;
+			font-weight: 600;
+			cursor: pointer;
+			margin-bottom: 1rem;
+		}
+
+	}
+
+	.create-post {
+		height: 100%;
+		width: 90%;
+		margin: 1rem auto;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-direction: column;
+		font-size: 1.3rem;
+	}
+	label {
+		text-align: left;
+		display: block;
+		margin-top: 10px;
+		width: 100%;
+	}
+	input,
+	textarea {
+		display: block;
+		padding: 10px;
+		font-size: 1.2rem;
+		outline: 0;
+		width: 100%;
+	}
+	textarea {
+		min-height: 400px;
+		resize: none;
+	}
+	.create-post-btn {
+		width: fit-content;
+		margin: 20px;
+		cursor: pointer;
+		border: 0;
+		padding: 10px 25px;
+		border-radius: 5px;
+		font-weight: 600;
+		background: var(--color-4);
+		color: var(--color-6);
+	}
+	.create-post-btn:hover {
+		background: var(--color-3);
+	}
+	.blur {
+		filter: blur(10px);
+	}
+	.disabled {
+		pointer-events: none;
+		background: #777777;
+		color: #fff;
+	}
+}

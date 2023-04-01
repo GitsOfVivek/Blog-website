@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useContext } from 'react';
 import UserContext from '../../context/UserContext';
-import './AddComments.css'
+import './AddComments.scss'
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 import { database } from '../../firebase'
-
+import {BsFillArrowRightSquareFill} from 'react-icons/bs'
 
 const AddComments = ({getDataFromFirestore}) => {
 
@@ -14,6 +14,7 @@ const AddComments = ({getDataFromFirestore}) => {
   const [inputText, setInputText] = useState('');
   const { id } = useParams();
   const addCommentsHandler = async () => {
+    if(inputText.trim() === '') return;
     const postRef = doc(database, "posts", id);
     let prevComment;
     await getDoc(postRef).then(snap => {
@@ -40,11 +41,14 @@ const AddComments = ({getDataFromFirestore}) => {
   }
 
 
-  return isLoggedIn && <div className="add-comments">
+  return isLoggedIn && 
+  <div className="add-comments">
     <div className="comment">
       <img className='comments__input-img' src={userInfo.photoURL} alt={userInfo.displayName} />
       <input value={inputText} onChange={(e) => setInputText(e.target.value)} className='comments__input' type="text" placeholder='Comments here...' />
-      <button onClick={addCommentsHandler} className='comments__btn'>Comment</button>
+      <button onClick={addCommentsHandler} className='comments__btn'>
+        <BsFillArrowRightSquareFill className='icon'/>
+      </button>
     </div>
   </div>
 }

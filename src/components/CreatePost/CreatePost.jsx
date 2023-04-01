@@ -1,4 +1,4 @@
-import './CreatePost.css';
+import './CreatePost.scss';
 import Popup from '../Popup/Popup';
 import UserContext from '../../context/UserContext';
 import { useContext, useEffect, useState } from 'react';
@@ -6,18 +6,21 @@ import { doc, setDoc, getDocs } from 'firebase/firestore';
 import { uuidv4 } from '@firebase/util';
 import { database, colRef } from '../../firebase';
 import PostContext from '../../context/PostContext';
-import styled from 'styled-components';
 import { MdDone } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import loading from "../../assets/loading.svg";
 
 const CreatePost = () => {
 	const { isLoggedIn, userInfo } = useContext(UserContext);
 	const { setTotalPosts } = useContext(PostContext);
 	const [isPostCreated, setIsPostCreated] = useState(false);
 	const [disableBtn, setDisableBtn] = useState(false);
+	
 	const [postDetails, setPostDetails] = useState({
 		title: '',
 		post: '',
 		date: '',
+		imgURL: '',
 		author: {
 			name: userInfo?.displayName,
 			email: userInfo?.email,
@@ -26,6 +29,8 @@ const CreatePost = () => {
 		id: '',
 		comments: [],
 	});
+	
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (isPostCreated) {
@@ -34,15 +39,15 @@ const CreatePost = () => {
 			setDisableBtn(false);
 		}
 	}, [isPostCreated]);
-
+	
 	if (!isLoggedIn) {
 		return <Popup message="Login First" />;
 	}
-
+	
 	const setDataToFirestore = async () => {
 		await setDoc(doc(database, 'posts', uuidv4()), postDetails);
 	};
-
+	
 	const submitHandler = e => {
 		e.preventDefault();
 		setDisableBtn(true);
@@ -60,12 +65,12 @@ const CreatePost = () => {
 					},
 				});
 				getDocs(colRef)
-					.then(snapshot => {
-						let posts = [];
-						snapshot.docs.forEach(doc => {
-							posts.push({ ...doc.data(), id: doc.id });
-						});
-						setTotalPosts(posts);
+				.then(snapshot => {
+					let posts = [];
+					snapshot.docs.forEach(doc => {
+						posts.push({ ...doc.data(), id: doc.id });
+					});
+					setTotalPosts(posts);
 					})
 					.catch(e => {
 						console.log(e);
@@ -75,11 +80,11 @@ const CreatePost = () => {
 				console.log(err);
 			});
 	};
-
+	
 	return (
 		<div className="create-post-wrapper">
 			{isPostCreated && (
-				<PostCreatedAlert>
+				<div className='create-post-card'>
 					<span>
 						<MdDone className="sign" />
 					</span>
@@ -88,12 +93,14 @@ const CreatePost = () => {
 						Your post has been added successfully!
 					</div>
 					<button
+					className='popup-btn'
 						onClick={() => {
 							setIsPostCreated(false);
+							navigate('/');
 						}}>
 						OK
 					</button>
-				</PostCreatedAlert>
+				</div >
 			)}
 			<form
 				onSubmit={submitHandler}
@@ -109,8 +116,22 @@ const CreatePost = () => {
 					}
 					type="text"
 					id="title"
+					placeholder='Title of blog post...'
 					required
-				/>
+					/>
+				<label htmlFor="imgURL">Image URL :</label>
+				<input
+					value={postDetails.imgURL}
+					onChange={e =>
+						setPostDetails({
+							...postDetails,
+							imgURL: e.target.value
+						})
+					}
+					type="url"
+					id="imgURL"
+					placeholder='Image url of blog post...(optional)'
+					/>
 
 				<label htmlFor="title">Post :</label>
 				<textarea
@@ -124,79 +145,24 @@ const CreatePost = () => {
 					}}
 					required
 					type="text"
+					placeholder='Write your post here...'
 					id="title"></textarea>
 
-				<input
-					className={`create-post-btn ${
-						disableBtn ? 'disabled' : ''
-					}`}
-					type="submit"
-					value="Create Post"
-				/>
+				<button
+					className={`create-post-btn`}
+					type="submit">
+						{disableBtn ?
+						<img  style={{
+							height: "20px",
+							width: "20px",
+							margin: "0 10px",
+						}}
+				  		src={loading}
+						/> : 'Create Post'}
+					</button>
 			</form>
 		</div>
 	);
 };
 
 export default CreatePost;
-
-const PostCreatedAlert = styled.div`
-	width: 50%;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	border-radius: 10px;
-	position: fixed;
-	background: #e1e1e1;
-	color: #404040;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	flex-direction: column;
-	gap: 2rem;
-	z-index: 999;
-
-	span {
-		height: 150px;
-		width: 150px;
-		background: green;
-		position: absolute;
-		top: -75px;
-		left: 50%;
-		transform: translateX(-50%);
-		border-radius: 100%;
-		color: #fff;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		.sign {
-			font-size: 6rem;
-		}
-	}
-
-	div {
-		text-align: center;
-		padding: 5px;
-	}
-	.title {
-		font-size: 3rem;
-		font-weight: 600;
-		margin-top: 100px;
-	}
-	.dec {
-		font-size: 1.5rem;
-	}
-
-	button {
-		width: 40%;
-		padding: 15px;
-		font-size: 1.3rem;
-		background: #00e000;
-		color: #fff;
-		border: 0;
-		font-weight: 600;
-		cursor: pointer;
-		margin-bottom: 1rem;
-	}
-`;
