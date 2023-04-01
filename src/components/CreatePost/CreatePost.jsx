@@ -140,7 +140,7 @@ const CreatePost = () => {
 						setPostDetails({
 							...postDetails,
 							post: e.target.value,
-							date: new Date().toLocaleDateString(),
+							date: new Date().toLocaleDateString('en-IN'),
 						});
 					}}
 					required

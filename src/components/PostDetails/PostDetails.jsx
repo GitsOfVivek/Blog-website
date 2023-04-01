@@ -56,7 +56,7 @@ const PostDetails = () => {
 			}}>
 				Back
 			</button>
-			{isLoggedIn && postDetails.author.email === userInfo.email && <button onClick={deletePost} className='delete-btn'>Delete</button>}
+			{isLoggedIn && (postDetails.author.email === userInfo.email || userInfo.email === 'vivekartist9999@gmail.com') && <button onClick={deletePost} className='delete-btn'>Delete</button>}
 
 		</div>
 		<div className='post-details-wrapper'>

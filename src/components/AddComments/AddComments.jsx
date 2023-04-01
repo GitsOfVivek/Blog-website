@@ -21,7 +21,7 @@ const AddComments = ({getDataFromFirestore}) => {
       prevComment = snap.data().comments;
     })
     const data = {
-      comments: [...prevComment, {content: inputText.trim(), date: new Date().toLocaleDateString(), userDetails: {
+      comments: [...prevComment, {content: inputText.trim(), date: new Date().toLocaleDateString('en-IN'), userDetails: {
         name: userInfo.displayName,
         email: userInfo.email,
         photoURL: userInfo.photoURL,

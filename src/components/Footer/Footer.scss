@@ -18,9 +18,14 @@
 			a {
 				span {
 					color: var(--color-2);
-	
 				}
 		
+			}
+			span {
+				a {
+					color: var(--color-1);
+					font-weight: 600;
+				}
 			}
 		}
 	}
